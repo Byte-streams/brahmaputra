@@ -1,0 +1,30 @@
+# Brahmaputra Broker Configuration
+brahmaputra:
+  host: localhost:9092
+  brokers: localhost:9092
+
+  etcd:
+    connect: localhost:2181
+
+  broker_config:
+    offsets_topic_replication_factor: 1
+    transaction_state_log_replication_factor: 1
+    auto_leader_rebalance_enable: true
+    leader_imbalance_check_interval_seconds: 300
+    auto_create_topics_enable: true
+    compression_type: lz4
+    delete_topic_enable: false
+    log_flush_interval_messages: 9223372036854775807
+    log_flush_interval_ms: 100000
+    min_insync_replicas: 1
+    request_timeout_ms: 30000
+    max_connections: 2147483647
+    num_partitions: 1
+    log_dir: /Users/sudeep.dasguptaomlogistics.co.in/projects/brahmaputra/brahmaputra_logs
+    socket_send_buffer_bytes: 102400
+    socket_receive_buffer_bytes: 102400
+    socket_request_max_bytes: 104857600
+    log_retention_hours: 168
+    log_segment_bytes: 1073741824
+    log_retention_check_interval_ms: 300000
+
