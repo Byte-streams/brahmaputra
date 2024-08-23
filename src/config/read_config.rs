@@ -1,6 +1,6 @@
 use tokio::fs::File;
 use tokio::io::AsyncReadExt;
-use crate::config::config_structures::{Brahmaputra};
+use crate::byte_buffers::concrete_functions::broker_config::{Brahmaputra};
 use crate::config::configuration::GLOBAL;
 
 pub async fn read_config(file_path: String) -> bool{

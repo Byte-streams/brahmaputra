@@ -13,6 +13,7 @@ use libc::{rlimit, RLIMIT_NOFILE, setrlimit};
 use clap::Parser;
 use crate::applications::connect_etcd::EtcdStore;
 use crate::applications::connect_tcp::connect_tcp_server;
+use crate::config::configuration::ThreadModel;
 use crate::config::read_config::read_config;
 
 // parsing command line argument
@@ -41,18 +42,6 @@ fn set_file_limit(soft_limit: u64, hard_limit: u64) -> io::Result<()> {
 
 #[tokio::main(flavor = "multi_thread", worker_threads = 8)]
 async fn main() {
-
-    // let io_runtime = tokio::runtime::Builder::new_multi_thread()
-    //     .worker_threads(4)
-    //     .enable_io()
-    //     .build()
-    //     .unwrap();
-    //
-    // let compute_runtime = tokio::runtime::Builder::new_multi_thread()
-    //     .worker_threads(4)
-    //     .enable_time()
-    //     .build()
-    //     .unwrap();
 
     // getting the command line argument
     let args = Args::parse();

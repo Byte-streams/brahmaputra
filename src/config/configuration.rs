@@ -8,8 +8,10 @@ use dashmap::DashMap;
 use lazy_static::lazy_static;
 use serde::Deserialize;
 use tokio::net::TcpStream;
+use tokio::runtime::Runtime;
+use tokio::sync::mpsc::Sender;
 use tokio::sync::RwLock;
-use crate::config::config_structures::Brahmaputra;
+use crate::byte_buffers::concrete_functions::broker_config::Brahmaputra;
 
 // declaring static mutable variable for containing the config object
 lazy_static! {
@@ -17,6 +19,11 @@ lazy_static! {
     pub static ref app_conf: RwLock<Option<Brahmaputra>> = RwLock::new(None);
     pub static ref SocketsList:DashMap<String, Arc<RwLock<Option<TcpStream>>>> = DashMap::with_shard_amount(32);
     pub static ref TopicCreated:DashMap<String, bool> = DashMap::with_shard_amount(32);
+    pub static ref ThreadModel: Runtime = tokio::runtime::Builder::new_multi_thread()
+        .worker_threads(100000)
+        .enable_all()
+        .build()
+        .unwrap();
 }
 
 // creating a global config struct
