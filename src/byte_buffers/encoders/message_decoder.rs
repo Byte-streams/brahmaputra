@@ -10,11 +10,11 @@ pub async fn remove_socket_client(client_id: String){
     SocketsList.remove(client_id.as_str()).is_some();
 }
 
-pub async fn decode_msg(producer_id: String, total_buf: Option<Box<Vec<u8>>>, error_code: i32){
+pub async fn decode_msg(client_id: String, total_buf: Option<Box<Vec<u8>>>, error_code: i32){
 
     // if producer is disconnected
     if error_code == ExceptionCode::DisconnectClient as i32{
-        remove_socket_client(producer_id).await;
+        remove_socket_client(client_id).await;
         return;
     }
 
@@ -45,7 +45,7 @@ pub async fn decode_msg(producer_id: String, total_buf: Option<Box<Vec<u8>>>, er
             match client_type.as_str(){
                 "P" => {
                     let producer_obj = ProducerMsgV1{};
-                    producer_obj.decompress_producer_msg(producer_id, topic, bb).await;
+                    producer_obj.decompress_producer_msg(client_id, topic, bb).await;
                 }
                 "C" => {
 
